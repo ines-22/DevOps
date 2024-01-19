@@ -1,0 +1,14 @@
+---
+- hosts: ansible
+become: true
+tasks:
+- name: Stop existing container
+command: docker stop ContainerName
+- name: Remove the container
+command: docker rm ContainerName
+- name: Remove previous application image
+command: docker rmi DockerImage
+- name: Pull the new application image from dockerhub
+command: docker pull DockerImage
+- name: Create application container
+command: docker run -d --name ContainerName -p port:port -v VolumePath -e TZ=Africa/Tunis DockerImage
